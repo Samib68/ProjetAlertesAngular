@@ -1,0 +1,54 @@
+mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-card-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button[type="submit"] {
+  background-color: #3f51b5;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #303f9f;
+}
+
+form {
+  padding: 20px;
+}
+
+/* Animation pour la flèche */
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+button[type="submit"] mat-icon {
+  animation: arrow-bounce 1s infinite;
+}
+
+/* Responsive design */
+@media (max-width: 599px) {
+  mat-card {
+    max-width: 90%;
+  }
+}
+
