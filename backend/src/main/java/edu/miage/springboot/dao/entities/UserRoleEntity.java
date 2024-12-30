@@ -3,7 +3,7 @@ package edu.miage.springboot.dao.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_roles")
+@Table(name = "roles")
 public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,13 +1,11 @@
 package edu.miage.springboot.dao.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users_connections")
 public class UserConnectionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
