@@ -1,0 +1,26 @@
+<div class="admin-dashboard">
+    <h1>Dashboard Admin</h1>
+
+    <nav>
+        <button (click)="currentSection = 'alerts'">Gestion des Alertes</button>
+        <button (click)="currentSection = 'groups'">Gestion des Groupes</button>
+        <button (click)="currentSection = 'users'">Gestion des Utilisateurs</button>
+    </nav>
+
+    <div class="content">
+        <ng-container *ngIf="currentSection === 'alerts'">
+            <h2>Gestion des Alertes</h2>
+            <app-alert-management></app-alert-management>
+        </ng-container>
+
+        <ng-container *ngIf="currentSection === 'groups'">
+            <h2>Gestion des Groupes</h2>
+            <app-group-management></app-group-management>
+        </ng-container>
+
+        <ng-container *ngIf="currentSection === 'users'">
+            <h2>Gestion des Utilisateurs</h2>
+            <app-user-management></app-user-management>
+        </ng-container>
+    </div>
+</div>

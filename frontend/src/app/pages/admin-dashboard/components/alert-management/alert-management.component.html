@@ -1,0 +1,24 @@
+<div>
+    <h2>Gestion des Alertes</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Message</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let alert of alerts">
+            <td>{{ alert.id }}</td>
+            <td>{{ alert.title }}</td>
+            <td>{{ alert.message }}</td>
+            <td>
+                <button (click)="editAlert(alert)">Modifier</button>
+                <button (click)="deleteAlert(alert.id)">Supprimer</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

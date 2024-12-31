@@ -1,0 +1,22 @@
+<div>
+    <h2>Gestion des Groupes</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let group of groups">
+            <td>{{ group.id }}</td>
+            <td>{{ group.name }}</td>
+            <td>
+                <button (click)="editGroup(group)">Modifier</button>
+                <button (click)="deleteGroup(group.id)">Supprimer</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

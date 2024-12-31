@@ -19,5 +19,8 @@ export class NavbarComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  isAdmin(): boolean {
+    return this.authService.isAdmin(); // Vérifie si l'utilisateur a un rôle ADMIN
+  }
 
 }

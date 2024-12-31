@@ -8,10 +8,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,12 +28,26 @@ public class AuthController {
     private JwtService jwtService;
 
     @PostMapping("/login")
-    public AuthResponseDTO AuthenticateAndGetToken(@RequestBody AuthRequestDTO authRequestDTO) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword()));
+    public AuthResponseDTO authenticateAndGetToken(@RequestBody AuthRequestDTO authRequestDTO) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authRequestDTO.getUsername(),
+                        authRequestDTO.getPassword()
+                )
+        );
+
         if (authentication.isAuthenticated()) {
-            return new AuthResponseDTO(jwtService.GenerateToken(authRequestDTO.getUsername()));
+            // Récupérer les rôles de l'utilisateur
+            List<String> roles = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
+            // Générer le token avec les rôles
+            String token = jwtService.generateToken(authRequestDTO.getUsername(), roles);
+
+            return new AuthResponseDTO(token);
         } else {
-            throw new UsernameNotFoundException("invalid user request..!!");
+            throw new UsernameNotFoundException("Invalid user request!");
         }
     }
 }

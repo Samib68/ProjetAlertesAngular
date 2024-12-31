@@ -1,0 +1,30 @@
+<div>
+    <h2>Gestion des Utilisateurs</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Rôles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+          <span *ngFor="let role of user.roles; let i = index">
+            {{ role }}<span *ngIf="i < user.roles.length - 1">, </span>
+          </span>
+            </td>
+            <td>
+                <button (click)="editUser(user)">Modifier</button>
+                <button (click)="deleteUser(user.id)">Supprimer</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

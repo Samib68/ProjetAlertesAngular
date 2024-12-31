@@ -17,6 +17,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { FileListComponent } from './pages/file-list/file-list.component';
 import {NavbarComponent} from "./components/navbar/navbar.component";
+import {UserManagementComponent} from "./pages/admin-dashboard/components/user-management/user-management.component";
+import {GroupManagementComponent} from "./pages/admin-dashboard/components/group-management/group-management.component";
+import {
+  AdminDashboardManagementComponent
+} from "./pages/admin-dashboard/components/admin-dashboard-management/admin-dashboard-management.component";
+import {AlertManagementComponent} from "./pages/admin-dashboard/components/alert-management/alert-management.component";
+import {HomeComponent} from "./pages/home/home.component";
 
 
 @NgModule({
@@ -25,7 +32,9 @@ import {NavbarComponent} from "./components/navbar/navbar.component";
     LoginComponent,
     FolderListComponent,
     FileListComponent,
-    NavbarComponent
+    NavbarComponent, AdminDashboardManagementComponent,
+    GroupManagementComponent,
+    UserManagementComponent,AlertManagementComponent,HomeComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +47,7 @@ import {NavbarComponent} from "./components/navbar/navbar.component";
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
   ],
   providers: [
     provideAnimationsAsync(),
