@@ -13,6 +13,8 @@ public class GroupEntity {
 
     private String name;
 
+    private String description;
+
     @ManyToMany(mappedBy = "groups")
     private Set<UserEntity> users;
 
@@ -38,5 +40,12 @@ public class GroupEntity {
 
     public void setUsers(Set<UserEntity> users) {
         this.users = users;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -9,14 +9,15 @@ import {
   AdminDashboardManagementComponent
 } from "./pages/admin-dashboard/components/admin-dashboard-management/admin-dashboard-management.component";
 import {HomeComponent} from "./pages/home/home.component";
-import {AlertManagementComponent} from "./pages/admin-dashboard/components/alert-management/alert-management.component";
+import {ErrorComponent} from "./pages/error/error.component";
 
 const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"",component:HomeComponent,canActivate: [AuthGuard],},
   {path:"folder/:id",component:FileListComponent,canActivate: [AuthGuard],},
-  {path:"**",pathMatch:'full',redirectTo:"/"},
-  {path:"admin", component: AdminDashboardManagementComponent,canActivate: [AdminGuard]}
+  {path:"error", component: ErrorComponent},
+  {path:"dashboard", component: AdminDashboardManagementComponent, canActivate:[AdminGuard]},
+  {path:"**",pathMatch:'full',redirectTo:"error"}
 ];
 
 @NgModule({
