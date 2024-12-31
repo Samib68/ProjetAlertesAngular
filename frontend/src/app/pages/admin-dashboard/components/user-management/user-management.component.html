@@ -1,4 +1,4 @@
-<div>
+<div class="user-management">
     <h2>Gestion des Utilisateurs</h2>
     <table>
         <thead>
@@ -17,12 +17,12 @@
             <td>{{ user.email }}</td>
             <td>
           <span *ngFor="let role of user.roles; let i = index">
-            {{ role }}<span *ngIf="i < user.roles.length - 1">, </span>
+            {{ role.name }}<span *ngIf="i < user.roles.length - 1">, </span>
           </span>
             </td>
             <td>
-                <button (click)="editUser(user)">Modifier</button>
-                <button (click)="deleteUser(user.id)">Supprimer</button>
+                <button class="edit-button" (click)="editUser(user)">Modifier</button>
+                <button class="delete-button" (click)="deleteUser(user.id)">Supprimer</button>
             </td>
         </tr>
         </tbody>
