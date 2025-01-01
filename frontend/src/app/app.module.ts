@@ -24,6 +24,8 @@ import {
 } from "./pages/admin-dashboard/components/admin-dashboard-management/admin-dashboard-management.component";
 import {AlertManagementComponent} from "./pages/admin-dashboard/components/alert-management/alert-management.component";
 import {HomeComponent} from "./pages/home/home.component";
+import {UserService} from "./services/user.service";
+import {GroupService} from "./services/group.service";
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import {HomeComponent} from "./pages/home/home.component";
   ],
   providers: [
     provideAnimationsAsync(),
-      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    GroupService, UserService
   ],
   bootstrap: [AppComponent]
 })

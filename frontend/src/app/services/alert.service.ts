@@ -14,6 +14,14 @@ export class AlertService {
         return this.http.get<any[]>(this.apiUrl);
     }
 
+    getAlertsByUser(userId: number): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/user/${userId}`);
+    }
+
+    createAlert(alert: any): Observable<any> {
+        return this.http.post<any>(this.apiUrl, alert);
+    }
+
     deleteAlert(alertId: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${alertId}`);
     }

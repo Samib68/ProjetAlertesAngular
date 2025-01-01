@@ -1,4 +1,4 @@
-<div>
+<div class="user-management">
     <h2>Gestion des Alertes</h2>
     <table>
         <thead>
@@ -15,7 +15,6 @@
             <td>{{ alert.title }}</td>
             <td>{{ alert.message }}</td>
             <td>
-                <button (click)="editAlert(alert)">Modifier</button>
                 <button (click)="deleteAlert(alert.id)">Supprimer</button>
             </td>
         </tr>

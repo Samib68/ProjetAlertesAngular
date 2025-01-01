@@ -7,28 +7,36 @@ import {Alert} from "../../../../models/Alert";
   templateUrl: './alert-management.component.html',
   styleUrl: './alert-management.component.scss'
 })
-export class AlertManagementComponent implements OnInit{
+export class AlertManagementComponent implements OnInit {
   alerts: Alert[] = [];
+  userId: number = 1; // Exemple : ID de l'utilisateur connecté
 
   constructor(private alertService: AlertService) {}
 
   ngOnInit(): void {
-    this.loadAlerts();
+    this.loadAlertsByUser();
   }
 
-  loadAlerts(): void {
-    this.alertService.getAllAlerts().subscribe((data) => {
+  loadAlertsByUser(): void {
+    this.alertService.getAlertsByUser(this.userId).subscribe((data) => {
       this.alerts = data;
     });
   }
 
-  editAlert(alert: any): void {
-    console.log('Modifier', alert);
+  createAlert(): void {
+    const newAlert = {
+      title: 'Nouvelle Alerte',
+      message: 'Message de l\'alerte',
+      user: { id: this.userId }, // L'utilisateur associé
+    };
+    this.alertService.createAlert(newAlert).subscribe(() => {
+      this.loadAlertsByUser();
+    });
   }
 
   deleteAlert(alertId: number): void {
     this.alertService.deleteAlert(alertId).subscribe(() => {
-      this.loadAlerts();
+      this.loadAlertsByUser();
     });
   }
 }
