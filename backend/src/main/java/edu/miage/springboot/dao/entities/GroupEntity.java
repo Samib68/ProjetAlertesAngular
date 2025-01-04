@@ -1,7 +1,9 @@
 package edu.miage.springboot.dao.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,7 +18,12 @@ public class GroupEntity {
     private String description;
 
     @ManyToMany(mappedBy = "groups")
+    @JsonIgnore
     private Set<UserEntity> users;
+
+    public GroupEntity() {
+        this.users = new HashSet<>();
+    }
 
     public Long getId() {
         return id;

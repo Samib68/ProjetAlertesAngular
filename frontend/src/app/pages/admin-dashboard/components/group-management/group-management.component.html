@@ -49,6 +49,7 @@
         </tr>
         </tbody>
     </table>
+
     <div *ngIf="selectedGroup">
         <h3>Membres de {{ selectedGroup.name }}</h3>
         <ul>
@@ -58,6 +59,7 @@
         </ul>
         <button (click)="resetMembersView()">Fermer</button>
     </div>
+
     <!-- Ajouter des membres au groupe -->
     <div *ngIf="selectedGroup">
         <h3>Ajouter des Membres à {{ selectedGroup.name }}</h3>
@@ -75,5 +77,4 @@
         </select>
 
         <button (click)="addMembersToGroup(selectedGroup.id)">Ajouter Membres</button>
-    </div>
-</div>
+    </div></div>

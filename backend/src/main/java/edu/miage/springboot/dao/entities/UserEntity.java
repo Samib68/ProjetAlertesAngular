@@ -1,7 +1,9 @@
 package edu.miage.springboot.dao.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,11 +27,15 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
+    @JsonIgnore
     private Set<GroupEntity> groups;
     private String status;
     private String email;
 
     public UserEntity() {
+        this.groups = new HashSet<>();
+        this.roles = new HashSet<>();
+        this.alerts = new ArrayList<>();
     }
 
     public Long getId() {

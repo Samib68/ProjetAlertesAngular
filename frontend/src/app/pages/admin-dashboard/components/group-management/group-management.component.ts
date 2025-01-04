@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../../../../services/group.service';
+import { UserService } from '../../../../services/user.service';
 import { Group } from '../../../../models/Group';
-import {User} from "../../../../models/User";
-import {UserService} from "../../../../services/user.service";
+import { User } from '../../../../models/User';
 
 @Component({
   selector: 'app-group-management',
@@ -16,13 +16,13 @@ export class GroupManagementComponent implements OnInit {
   members: User[] = [];
   selectedGroup: Group | null = null;
   availableUsers: User[] = []; // Tous les utilisateurs disponibles
-  selectedUsers: number[] = [];
+  selectedUsers: number[] = []; // Utilisateurs sélectionnés pour l'ajout
 
-  constructor(private groupService: GroupService,
-               private userService: UserService) {}
+  constructor(private groupService: GroupService, private userService: UserService) {}
 
   ngOnInit(): void {
     this.loadGroups();
+    this.loadAvailableUsers(); // Charge les utilisateurs disponibles au démarrage
   }
 
   // Charger tous les groupes
@@ -32,16 +32,21 @@ export class GroupManagementComponent implements OnInit {
     });
   }
 
+  // Charger les utilisateurs disponibles
+  loadAvailableUsers(): void {
+    this.userService.getAllUsers().subscribe((data) => {
+      this.availableUsers = data;
+    });
+  }
+
   // Soumettre le formulaire (créer ou modifier)
   onSubmit(): void {
     if (this.isEditing) {
-      // Modification d'un groupe existant
       this.groupService.updateGroup(this.currentGroup.id, this.currentGroup).subscribe(() => {
         this.loadGroups();
         this.resetForm();
       });
     } else {
-      // Création d'un nouveau groupe
       this.groupService.createGroup(this.currentGroup).subscribe(() => {
         this.loadGroups();
         this.resetForm();
@@ -67,6 +72,8 @@ export class GroupManagementComponent implements OnInit {
     this.isEditing = false;
     this.currentGroup = { id: 0, name: '', description: '' };
   }
+
+  // Charger les membres du groupe
   loadGroupMembers(groupId: number): void {
     this.groupService.getGroupMembers(groupId).subscribe((data) => {
       this.members = data;
@@ -80,12 +87,7 @@ export class GroupManagementComponent implements OnInit {
     this.selectedGroup = null;
   }
 
-  loadAvailableUsers(): void {
-    this.userService.getAllUsers().subscribe((data) => {
-      this.availableUsers = data;
-    });
-  }
-
+  // Ajouter des membres à un groupe
   addMembersToGroup(groupId: number): void {
     this.groupService.addMembersToGroup(groupId, this.selectedUsers).subscribe(() => {
       console.log('Membres ajoutés avec succès');
