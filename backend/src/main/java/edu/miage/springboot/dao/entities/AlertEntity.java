@@ -1,5 +1,6 @@
 package edu.miage.springboot.dao.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class AlertEntity {
     }
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private UserEntity user; //l'utilisateur qui envoie l'alerte
 

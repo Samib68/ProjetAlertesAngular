@@ -3,4 +3,5 @@ export interface Alert{
     title:string;
     message:string;
     timestamp:Date;
+    user:number;
 }

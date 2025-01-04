@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {AlertService} from "../../../../services/alert.service";
-import {Alert} from "../../../../models/Alert";
+import { Component, OnInit } from '@angular/core';
+import { AlertService } from "../../../../services/alert.service";
+import { Alert } from "../../../../models/Alert";
 
 @Component({
   selector: 'app-alert-management',
   templateUrl: './alert-management.component.html',
-  styleUrl: './alert-management.component.scss'
+  styleUrls: ['./alert-management.component.scss'] // Correction du styleUrl
 })
 export class AlertManagementComponent implements OnInit {
   alerts: Alert[] = [];
@@ -14,29 +14,32 @@ export class AlertManagementComponent implements OnInit {
   constructor(private alertService: AlertService) {}
 
   ngOnInit(): void {
-    this.loadAlertsByUser();
+    this.loadAllAlerts(); // Charge toutes les alertes au démarrage
   }
 
-  loadAlertsByUser(): void {
-    this.alertService.getAlertsByUser(this.userId).subscribe((data) => {
+  // Charge toutes les alertes
+  loadAllAlerts(): void {
+    this.alertService.getAllAlerts().subscribe((data) => {
       this.alerts = data;
     });
   }
 
   createAlert(): void {
-    const newAlert = {
+    const newAlert: Alert = {
+      id: 1, // ID sera généré par le backend
       title: 'Nouvelle Alerte',
       message: 'Message de l\'alerte',
-      user: { id: this.userId }, // L'utilisateur associé
+      timestamp: new Date(), // Ajustez selon votre modèle
+      user: this.userId // L'utilisateur associé
     };
     this.alertService.createAlert(newAlert).subscribe(() => {
-      this.loadAlertsByUser();
+      this.loadAllAlerts(); // Recharge toutes les alertes
     });
   }
 
   deleteAlert(alertId: number): void {
     this.alertService.deleteAlert(alertId).subscribe(() => {
-      this.loadAlertsByUser();
+      this.loadAllAlerts(); // Recharge toutes les alertes après suppression
     });
   }
 }

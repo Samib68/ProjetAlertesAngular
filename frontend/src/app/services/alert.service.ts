@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Alert } from '../models/Alert';
 
 @Injectable({
     providedIn: 'root',
@@ -10,16 +11,16 @@ export class AlertService {
 
     constructor(private http: HttpClient) {}
 
-    getAllAlerts(): Observable<any[]> {
-        return this.http.get<any[]>(this.apiUrl);
+    getAllAlerts(): Observable<Alert[]> {
+        return this.http.get<Alert[]>(this.apiUrl);
     }
 
-    getAlertsByUser(userId: number): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiUrl}/user/${userId}`);
+    getAlertsByUser(userId: number): Observable<Alert[]> {
+        return this.http.get<Alert[]>(`${this.apiUrl}/user/${userId}`);
     }
 
-    createAlert(alert: any): Observable<any> {
-        return this.http.post<any>(this.apiUrl, alert);
+    createAlert(alert: Alert): Observable<Alert> {
+        return this.http.post<Alert>(this.apiUrl, alert);
     }
 
     deleteAlert(alertId: number): Observable<void> {
