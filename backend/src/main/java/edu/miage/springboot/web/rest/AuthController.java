@@ -1,6 +1,7 @@
 package edu.miage.springboot.web.rest;
 
 import edu.miage.springboot.dao.entities.UserEntity;
+import edu.miage.springboot.dao.repositories.UserRepository;
 import edu.miage.springboot.security.JwtService;
 import edu.miage.springboot.web.dtos.AuthRequestDTO;
 import edu.miage.springboot.web.dtos.AuthResponseDTO;
@@ -27,6 +28,8 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping("/login")
     public AuthResponseDTO authenticateAndGetToken(@RequestBody AuthRequestDTO authRequestDTO) {
@@ -38,14 +41,14 @@ public class AuthController {
         );
 
         if (authentication.isAuthenticated()) {
+            UserEntity user = userRepository.findByUsername(authRequestDTO.getUsername());
             // Récupérer les rôles de l'utilisateur
             List<String> roles = authentication.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
-
             // Générer le token avec les rôles
-            String token = jwtService.generateToken(authRequestDTO.getUsername(), roles);
+            String token = jwtService.generateToken(authRequestDTO.getUsername(),user.getId(), roles);
 
             return new AuthResponseDTO(token);
         } else {

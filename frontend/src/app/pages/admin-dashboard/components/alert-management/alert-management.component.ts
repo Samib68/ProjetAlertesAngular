@@ -9,7 +9,6 @@ import { Alert } from "../../../../models/Alert";
 })
 export class AlertManagementComponent implements OnInit {
   alerts: Alert[] = [];
-  userId: number = 1; // Exemple : ID de l'utilisateur connecté
 
   constructor(private alertService: AlertService) {}
 
@@ -21,18 +20,6 @@ export class AlertManagementComponent implements OnInit {
   loadAllAlerts(): void {
     this.alertService.getAllAlerts().subscribe((data) => {
       this.alerts = data;
-    });
-  }
-
-  createAlert(): void {
-    const newAlert: Alert = {
-      id:1,
-      title: 'Nouvelle Alerte',
-      message: 'Message de l\'alerte',
-      user: this.userId // L'utilisateur associé
-    };
-    this.alertService.createAlert(newAlert).subscribe(() => {
-      this.loadAllAlerts(); // Recharge toutes les alertes
     });
   }
 

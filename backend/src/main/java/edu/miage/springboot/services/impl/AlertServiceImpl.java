@@ -68,7 +68,12 @@ public class AlertServiceImpl implements AlertService {
 
             // Simuler l'envoi d'alertes (ex. logs ou messages sur console)
             recipients.forEach(user -> {
-                messagingTemplate.convertAndSendToUser(user.getUsername(), "/topic/alerts", alert);
+                System.out.println("Alerte envoyée à " + user.getUsername() + ": " + alert.getTitle());
+                messagingTemplate.convertAndSendToUser(
+                        user.getUsername(),
+                        "/topic/alerts",
+                        alert
+                );
             });
 
             // Sauvegarder l'alerte

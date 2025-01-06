@@ -50,4 +50,5 @@ public class AlertController {
         return ResponseEntity.ok().build();
     }
 
+
 }

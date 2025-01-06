@@ -15,17 +15,19 @@ public class AlertEntity {
     private String title;
     private String message;
     private LocalDateTime timestamp;
+    private String type;
     public AlertEntity() {
         this.title = "default";
         this.message = "default";
         this.timestamp = LocalDateTime.now();
     }
 
-    public AlertEntity( String title, String message, UserEntity user) {
+    public AlertEntity( String title, String message, UserEntity user, String type) {
         this.title = title;
         this.message = message;
         this.timestamp = LocalDateTime.now();
         this.user=user;
+        this.type = type;
     }
 
     @ManyToOne
@@ -71,5 +73,12 @@ public class AlertEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -26,6 +26,9 @@
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" [routerLink]="'/login'" routerLinkActive="active">Connexion</a>
         </li>
+          <li class="nav-item" >
+              <button (click)="askPermission()" class="nav-link">permission notifications</button>
+          </li>
 
       </ul>
       <button

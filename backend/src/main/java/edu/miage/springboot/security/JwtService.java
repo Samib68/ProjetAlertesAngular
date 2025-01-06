@@ -33,6 +33,11 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
+    public Long extractUserId(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("userId", Long.class); // Récupérer l'ID en tant que Long
+    }
+
     public List<String> extractRoles(String token) {
         Claims claims = extractAllClaims(token);
         return claims.get("roles", List.class); // Récupérer les rôles à partir des claims
@@ -59,9 +64,10 @@ public class JwtService {
     }
 
 
-    public String generateToken(String username, List<String> roles) {
+    public String generateToken(String username,Long userId, List<String> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", roles);
+        claims.put("userId", userId);
         return createToken(claims, username);
     }
 

@@ -15,7 +15,7 @@ export class AlertSenderComponent {
 
   sendAlert(): void {
     const alert = {
-      id: 1,
+      id: 0,
       title: this.alertTitle,
       message: this.alertMessage,
       type: this.alertType,

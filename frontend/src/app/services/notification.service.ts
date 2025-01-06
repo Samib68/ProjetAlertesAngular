@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import SockJS from 'sockjs-client';
 import {Stomp} from '@stomp/stompjs';
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
   socketClient: any =null;
-  constructor() {}
+  constructor(private authService : AuthService) {}
 
   connect(username: string): void {
     let ws = new SockJS('http://localhost:8080/ws');
@@ -18,6 +19,7 @@ export class NotificationService {
 
       this.socketClient?.subscribe(`/topic/alerts/${username}`, (message:any) => {
         const alert = JSON.parse(message.body);
+        console.log(`Alerte reçue : ${alert.title} - ${alert.message}`);
         this.showNotification(alert.title, alert.message);
       });
     });

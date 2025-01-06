@@ -1,6 +1,10 @@
+import {User} from "./User";
+
 export interface Alert{
     id:number;
     title:string;
     message:string;
-    user:number;
+    type:string;
+    user:User;
+    timestamp: Date;
 }
