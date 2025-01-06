@@ -41,4 +41,13 @@ public class AlertController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @PostMapping("/send")
+    public ResponseEntity<Void> sendAlert(
+            @RequestBody AlertEntity alert,
+            @RequestParam Long senderId
+    ) {
+        alertService.sendAlertToGroups(alert, senderId);
+        return ResponseEntity.ok().build();
+    }
+
 }

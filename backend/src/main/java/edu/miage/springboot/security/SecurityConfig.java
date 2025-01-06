@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/login","/api/auth/signin")
                         .permitAll()
-                        .requestMatchers("/", "/index.html", "*.ico", "*.css", "*.js")
+                        .requestMatchers("/", "/index.html", "*.ico", "*.css", "*.js","/ws/**")
                         .permitAll()
                         .requestMatchers("/actuator/**")
                         .hasRole("ADMIN")

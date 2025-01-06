@@ -26,10 +26,9 @@ export class AlertManagementComponent implements OnInit {
 
   createAlert(): void {
     const newAlert: Alert = {
-      id: 1, // ID sera généré par le backend
+      id:1,
       title: 'Nouvelle Alerte',
       message: 'Message de l\'alerte',
-      timestamp: new Date(), // Ajustez selon votre modèle
       user: this.userId // L'utilisateur associé
     };
     this.alertService.createAlert(newAlert).subscribe(() => {

@@ -9,4 +9,5 @@ public interface AlertService {
     List<AlertEntity> getAlertsByUser(Long userId);
     AlertEntity createAlert(AlertEntity alert);
     boolean deleteAlert(Long id);
+    void sendAlertToGroups(AlertEntity alert, Long senderId);
 }

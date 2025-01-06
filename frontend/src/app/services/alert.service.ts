@@ -8,6 +8,7 @@ import { Alert } from '../models/Alert';
 })
 export class AlertService {
     private apiUrl = 'http://localhost:8080/api/alerts';
+    private senderId = 1;
 
     constructor(private http: HttpClient) {}
 
@@ -25,5 +26,9 @@ export class AlertService {
 
     deleteAlert(alertId: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${alertId}`);
+    }
+
+    sendAlert(alert: { title: string; message: string; type: string }): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/send?senderId=${this.senderId}`, alert);
     }
 }

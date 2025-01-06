@@ -1,0 +1,37 @@
+<div class="alert-sender">
+    <h2>Envoyer une Alerte</h2>
+    <form (ngSubmit)="sendAlert()">
+        <label for="alertTitle">Titre de l'alerte :</label>
+        <input
+                type="text"
+                id="alertTitle"
+                [(ngModel)]="alertTitle"
+                name="alertTitle"
+                placeholder="Titre de l'alerte"
+                required
+        />
+
+        <label for="alertMessage">Message :</label>
+        <textarea
+                id="alertMessage"
+                [(ngModel)]="alertMessage"
+                name="alertMessage"
+                placeholder="Message de l'alerte"
+                required
+        ></textarea>
+
+        <label for="alertType">Type d'alerte :</label>
+        <select
+                id="alertType"
+                [(ngModel)]="alertType"
+                name="alertType"
+                required
+        >
+            <option *ngFor="let type of alertTypes" [value]="type">
+                {{ type }}
+            </option>
+        </select>
+
+        <button type="submit">Envoyer l'Alerte</button>
+    </form>
+</div>

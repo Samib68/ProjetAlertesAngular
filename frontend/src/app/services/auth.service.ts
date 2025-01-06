@@ -53,4 +53,18 @@ export class AuthService {
     return roles.includes('ROLE_ADMIN');
   }
 
+  getUsername(): string | null {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const payload: any = jwtDecode(token); // Décodage du token
+        return payload.sub || null; // Récupère le champ 'sub' pour l'username
+      } catch (error) {
+        console.error('Erreur lors du décodage du JWT:', error);
+        return null;
+      }
+    }
+    return null;
+  }
+
 }

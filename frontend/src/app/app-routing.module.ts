@@ -10,6 +10,7 @@ import {
 } from "./pages/admin-dashboard/components/admin-dashboard-management/admin-dashboard-management.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {ErrorComponent} from "./pages/error/error.component";
+import {AlertSenderComponent} from "./pages/alert-sender/alert-sender.component";
 
 const routes: Routes = [
   {path:"login",component:LoginComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:"folder/:id",component:FileListComponent,canActivate: [AuthGuard],},
   {path:"error", component: ErrorComponent},
   {path:"dashboard", component: AdminDashboardManagementComponent, canActivate:[AdminGuard]},
+  { path: 'send-alert', component: AlertSenderComponent,canActivate: [AuthGuard]},
   {path:"**",pathMatch:'full',redirectTo:"error"}
 ];
 

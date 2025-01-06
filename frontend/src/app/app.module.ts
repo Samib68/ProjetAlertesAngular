@@ -26,6 +26,7 @@ import {AlertManagementComponent} from "./pages/admin-dashboard/components/alert
 import {HomeComponent} from "./pages/home/home.component";
 import {UserService} from "./services/user.service";
 import {GroupService} from "./services/group.service";
+import {AlertSenderComponent} from "./pages/alert-sender/alert-sender.component";
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import {GroupService} from "./services/group.service";
     FileListComponent,
     NavbarComponent, AdminDashboardManagementComponent,
     GroupManagementComponent,
-    UserManagementComponent,AlertManagementComponent,HomeComponent
+    UserManagementComponent,AlertManagementComponent,HomeComponent,AlertSenderComponent
   ],
   imports: [
     CommonModule,
