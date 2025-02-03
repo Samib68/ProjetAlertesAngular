@@ -8,6 +8,8 @@ import edu.miage.springboot.dao.repositories.UserRepository;
 import edu.miage.springboot.services.interfaces.AlertService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -68,12 +70,18 @@ public class AlertServiceImpl implements AlertService {
 
             // Envoi d'alertes
             recipients.forEach(user -> {
-                System.out.println("📢 Tentative d'envoi à : " + user.getUsername());
-                System.out.println("Alerte envoyée à " + user.getUsername() + ": " + alert.getTitle());
+                String username = user.getUsername();
+                SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+                headerAccessor.setSessionId(username);
+                headerAccessor.setLeaveMutable(true);
+
+                System.out.println("📢 Tentative d'envoi à : " + username);
+                System.out.println("Alerte envoyée à " + username + ": " + alert.getTitle());
                 messagingTemplate.convertAndSendToUser(
-                        user.getUsername(),
+                        username,
                         "/queue/alerts",
-                        alert
+                        alert,
+                        headerAccessor.getMessageHeaders()
                 );
             });
 

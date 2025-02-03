@@ -26,7 +26,7 @@ export class NotificationService {
       console.log('WebSocket connected');
 
       // S'abonner aux notifications
-      this.stompClient?.subscribe(`/user/queue/alerts`, (message) => {
+      this.stompClient?.subscribe(`/queue/alerts-user${this.authService.getUsername()}`, (message) => {
         const alert = JSON.parse(message.body);
         console.log('Alerte reçue : ', alert);
         this.showNotification(alert.title, alert.message);
