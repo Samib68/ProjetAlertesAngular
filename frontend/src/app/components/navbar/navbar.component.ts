@@ -27,6 +27,7 @@ export class NavbarComponent {
   askPermission(): void{
     this.notificationService.requestNotificationPermission();
     this.notificationService.connect();
+    alert("notifications activées");
 }
 
 }
