@@ -76,7 +76,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                                                 userDetails, null, userDetails.getAuthorities());
                                 SecurityContextHolder.getContext().setAuthentication(authentication);
                                 accessor.setUser(authentication);
-                                System.out.println("🔍 WebSocket connecté pour utilisateur : " + authentication.getName());
+                                System.out.println(" WebSocket connecté pour utilisateur : " + authentication.getName());
                             }
                         }
                     }

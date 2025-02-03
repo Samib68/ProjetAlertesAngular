@@ -29,7 +29,7 @@ export class NotificationService {
       this.stompClient?.subscribe(`/queue/alerts-user${this.authService.getUsername()}`, (message) => {
         const alert = JSON.parse(message.body);
         console.log('Alerte reçue : ', alert);
-        this.showNotification(alert.title, alert.message);
+        this.showNotification(alert.type + ' : ' + alert.title, alert.message);
       });
     };
 

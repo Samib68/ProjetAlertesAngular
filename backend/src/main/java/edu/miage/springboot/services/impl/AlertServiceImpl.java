@@ -75,7 +75,7 @@ public class AlertServiceImpl implements AlertService {
                 headerAccessor.setSessionId(username);
                 headerAccessor.setLeaveMutable(true);
 
-                System.out.println("📢 Tentative d'envoi à : " + username);
+                System.out.println(" Tentative d'envoi à : " + username);
                 System.out.println("Alerte envoyée à " + username + ": " + alert.getTitle());
                 messagingTemplate.convertAndSendToUser(
                         username,

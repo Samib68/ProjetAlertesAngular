@@ -25,6 +25,12 @@ public class AlertController {
         return ResponseEntity.ok(alerts);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<AlertEntity>> getAlertsByUser(@PathVariable Long userId) {
+        List<AlertEntity> alerts = alertService.getAlertsByUser(userId);
+        return ResponseEntity.ok(alerts);
+    }
+
 
     // Créer une nouvelle alerte
     @PostMapping
