@@ -12,11 +12,7 @@ export class AppComponent{
   title = 'frontend';
   constructor(private router: Router, private notificationService: NotificationService, private authService: AuthService) {}
   ngOnInit(): void {
-    this.notificationService.requestNotificationPermission();
-    const username = this.authService.getUsername(); // Remplacez par l'authentification actuelle
-    if (username != null) {
-      this.notificationService.connect(username);
-    }
+
   }
 
   showNavbar(): boolean {

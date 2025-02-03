@@ -7,6 +7,8 @@ import edu.miage.springboot.services.interfaces.AlertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +44,8 @@ public class AlertController {
     }
 
     @PostMapping("/send")
+    @MessageMapping("/send-alert") // L’utilisateur envoie une alerte ici
+    @SendTo("/topic/alerts")
     public ResponseEntity<Void> sendAlert(
             @RequestBody AlertEntity alert,
             @RequestParam Long senderId

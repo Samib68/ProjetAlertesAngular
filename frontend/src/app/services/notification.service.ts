@@ -1,34 +1,48 @@
 import { Injectable } from '@angular/core';
+import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import {Stomp} from '@stomp/stompjs';
 import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  socketClient: any =null;
-  constructor(private authService : AuthService) {}
+  private stompClient: Client | null = null;
+  constructor(private authService : AuthService) {
+  }
 
-  connect(username: string): void {
-    let ws = new SockJS('http://localhost:8080/ws');
-    this.socketClient = Stomp.over(ws);
-    this.socketClient.connect({}, () => {
+  connect(): void {
+    const socket = new SockJS('http://localhost:8080/ws');
+    this.stompClient = new Client({
+      webSocketFactory: () => socket ,
+      connectHeaders: {
+        Authorization: `Bearer ${this.authService.getToken()}`
+      },
+      reconnectDelay: 5000, // Reconnexion automatique
+      debug: (str) => console.log(str), // Logs
+    });
+
+    this.stompClient.onConnect = () => {
       console.log('WebSocket connected');
-      // S'abonner aux notifications
 
-      this.socketClient?.subscribe(`/topic/alerts/${username}`, (message:any) => {
+      // S'abonner aux notifications
+      this.stompClient?.subscribe(`/user/queue/alerts`, (message) => {
         const alert = JSON.parse(message.body);
-        console.log(`Alerte reçue : ${alert.title} - ${alert.message}`);
+        console.log('Alerte reçue : ', alert);
         this.showNotification(alert.title, alert.message);
       });
-    });
+    };
+
+    this.stompClient.onStompError = (frame) => {
+      console.error('STOMP Error:', frame.headers['message']);
+    };
+
+    this.stompClient.activate();
   }
 
   disconnect(): void {
-    this.socketClient?.disconnect(() => {
-      console.log('WebSocket disconnected');
-    });
+    this.stompClient?.deactivate();
+    console.log('WebSocket disconnected');
   }
 
   private showNotification(title: string, body: string): void {
@@ -44,7 +58,4 @@ export class NotificationService {
       });
     }
   }
-
-
 }
-

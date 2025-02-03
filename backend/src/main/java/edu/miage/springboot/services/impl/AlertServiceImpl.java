@@ -63,15 +63,16 @@ public class AlertServiceImpl implements AlertService {
                     .flatMap(group -> group.getUsers().stream())
                     .collect(Collectors.toSet());
 
-            // Éliminer l’émetteur des destinataires
+            // Retirer l’émetteur des destinataires
             recipients.remove(sender);
 
-            // Simuler l'envoi d'alertes (ex. logs ou messages sur console)
+            // Envoi d'alertes
             recipients.forEach(user -> {
+                System.out.println("📢 Tentative d'envoi à : " + user.getUsername());
                 System.out.println("Alerte envoyée à " + user.getUsername() + ": " + alert.getTitle());
                 messagingTemplate.convertAndSendToUser(
                         user.getUsername(),
-                        "/topic/alerts",
+                        "/queue/alerts",
                         alert
                 );
             });
