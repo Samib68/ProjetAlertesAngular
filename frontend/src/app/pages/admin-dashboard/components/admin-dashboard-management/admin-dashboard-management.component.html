@@ -3,7 +3,7 @@
 
     <nav>
         <button (click)="currentSection = 'alerts'">Gestion des Alertes</button>
-        <button (click)="currentSection = 'groups'">Gestion des Groupes</button>
+        <button (click)="currentSection = 'groups'">Gestion des Groupes de diffusion</button>
         <button (click)="currentSection = 'users'">Gestion des Utilisateurs</button>
     </nav>
 
@@ -14,7 +14,7 @@
         </ng-container>
 
         <ng-container *ngIf="currentSection === 'groups'">
-            <h2>Gestion des Groupes</h2>
+            <h2>Gestion des Groupes de diffusions</h2>
             <app-group-management></app-group-management>
         </ng-container>
 

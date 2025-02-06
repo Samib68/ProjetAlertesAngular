@@ -17,6 +17,8 @@ public class GroupEntity {
 
     private String description;
 
+    private boolean diffusion;
+
     @ManyToMany(mappedBy = "groups")
     @JsonIgnore
     private Set<UserEntity> users;
@@ -54,5 +56,13 @@ public class GroupEntity {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isDiffusion() {
+        return diffusion;
+    }
+
+    public void setDiffusion(boolean diffusion) {
+        this.diffusion = diffusion;
     }
 }

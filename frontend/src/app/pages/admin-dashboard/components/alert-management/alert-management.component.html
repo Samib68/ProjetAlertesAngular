@@ -1,5 +1,4 @@
 <div class="alert-management">
-    <h2>Gestion des Alertes</h2>
 
     <table>
         <thead>
@@ -9,6 +8,7 @@
             <th>Message</th>
             <th>Type</th>
             <th>Date</th>
+            <th>Utilisateur</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -19,6 +19,7 @@
             <td>{{ alert.message }}</td>
             <td>{{ alert.type }}</td>
             <td>{{ alert.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td>{{ alert.user.username}}</td>
             <td>
                 <button (click)="deleteAlert(alert.id)">Supprimer</button>
             </td>

@@ -1,9 +1,4 @@
 <div class="home">
-    <header class="hero">
-        <h1>Bienvenue sur Mon Application</h1>
-        <p>Gérez vos alertes, groupes et utilisateurs facilement depuis un tableau de bord intuitif.</p>
-        <button routerLink="/dashboard" class="btn">Commencer</button>
-    </header>
 
     <section class="features">
         <h2>Fonctionnalités principales</h2>
@@ -22,5 +17,9 @@
             </div>
         </div>
     </section>
+    <div class="quick-alert-sender">
+        <button class="quick-alert-button" (click)="sendQuickAlert()">Envoyer Alerte</button>
+    </div>
+
 </div>
 

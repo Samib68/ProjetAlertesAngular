@@ -1,31 +1,18 @@
 <div>
+    <h2>Gestion des Groupes Non-Diffusion</h2>
 
-    <!-- Formulaire pour créer ou modifier un groupe -->
     <div class="form-container">
         <form (ngSubmit)="onSubmit()">
             <label for="groupName">Nom du groupe :</label>
-            <input
-                    type="text"
-                    id="groupName"
-                    [(ngModel)]="currentGroup.name"
-                    name="groupName"
-                    placeholder="Nom du groupe"
-                    required
-            />
+            <input type="text" id="groupName" [(ngModel)]="currentGroup.name" name="groupName" placeholder="Nom du groupe" required />
 
             <label for="groupDescription">Description :</label>
-            <textarea
-                    id="groupDescription"
-                    [(ngModel)]="currentGroup.description"
-                    name="groupDescription"
-                    placeholder="Description du groupe"
-            ></textarea>
+            <textarea id="groupDescription" [(ngModel)]="currentGroup.description" name="groupDescription" placeholder="Description du groupe"></textarea>
 
             <button type="submit">{{ isEditing ? 'Modifier' : 'Créer' }}</button>
         </form>
     </div>
 
-    <!-- Tableau des groupes -->
     <table>
         <thead>
         <tr>
@@ -59,21 +46,16 @@
         <button (click)="resetMembersView()">Fermer</button>
     </div>
 
-    <!-- Ajouter des membres au groupe -->
     <div *ngIf="selectedGroup">
         <h3>Ajouter des Membres à {{ selectedGroup.name }}</h3>
 
         <label for="availableUsers">Utilisateurs Disponibles :</label>
-        <select
-                id="availableUsers"
-                [(ngModel)]="selectedUsers"
-                multiple
-                size="5"
-        >
+        <select id="availableUsers" [(ngModel)]="selectedUsers" multiple size="5">
             <option *ngFor="let user of availableUsers" [value]="user.id">
                 {{ user.username }} ({{ user.email }})
             </option>
         </select>
 
         <button (click)="addMembersToGroup(selectedGroup.id)">Ajouter Membres</button>
-    </div></div>
+    </div>
+</div>

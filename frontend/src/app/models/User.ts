@@ -5,5 +5,5 @@ export interface User {
     username: string;
     email: string;
     roles: Role[];
-    // Ajoutez d'autres propriétés d'utilisateur si nécessaire
+
 }

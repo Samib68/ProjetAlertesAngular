@@ -11,6 +11,9 @@ import {HomeComponent} from "./pages/home/home.component";
 import {ErrorComponent} from "./pages/error/error.component";
 import {AlertSenderComponent} from "./pages/alert-sender/alert-sender.component";
 import {AlertHistoryComponent} from "./pages/alert-history/alert-history.component";
+import {
+  NonDiffusionGroupManagementComponent
+} from "./pages/non-diffusion-group-management/non-diffusion-group-management.component";
 
 const routes: Routes = [
   {path:"login",component:LoginComponent},
@@ -18,6 +21,7 @@ const routes: Routes = [
   {path:"folder/:id",component:FileListComponent,canActivate: [AuthGuard],},
   {path:"error", component: ErrorComponent},
   {path:"dashboard", component: AdminDashboardManagementComponent, canActivate:[AdminGuard]},
+  {path:"groupes", component: NonDiffusionGroupManagementComponent, canActivate:[AdminGuard]},
   { path: 'send-alert', component: AlertSenderComponent,canActivate: [AuthGuard]},
   { path: 'mes-alertes', component: AlertHistoryComponent,canActivate: [AuthGuard]},
   {path:"**",pathMatch:'full',redirectTo:"error"}

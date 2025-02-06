@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <h2>Historique de vos alertes</h2>
+
+    <div *ngIf="isLoading; else content" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <ng-template #content>
+        <div *ngIf="alerts.length === 0" class="alert alert-info">
+            Aucune alerte trouvée dans votre historique
+        </div>
+
+        <div *ngFor="let alert of alerts" class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ alert.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    {{ alert.timestamp | date: 'dd/MM/yyyy HH:mm' }}
+                </h6>
+                <p class="card-text">{{ alert.message }}</p>
+            </div>
+        </div>
+    </ng-template>
+</div>

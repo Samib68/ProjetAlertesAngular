@@ -26,13 +26,17 @@
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" [routerLink]="'/login'" routerLinkActive="active">Connexion</a>
         </li>
-          <li class="nav-item" >
-              <button (click)="askPermission()" class="nav-link">Activer notifications</button>
-          </li>
 
           <li class="nav-item" *ngIf="isLoggedIn()">
               <a class="nav-link" [routerLink]="'/mes-alertes'" routerLinkActive="active">Mes Alertes</a>
           </li>
+          <li class="nav-item" *ngIf="isLoggedIn() && isAdmin()">
+              <a class="nav-link" [routerLink]="'/groupes'" routerLinkActive="active">Groupes</a>
+          </li>
+          <li class="nav-item" >
+              <button (click)="askPermission()" class="nav-link">Activer notifications</button>
+          </li>
+
 
       </ul>
       <button

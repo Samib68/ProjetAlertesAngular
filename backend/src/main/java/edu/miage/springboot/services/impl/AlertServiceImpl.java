@@ -29,6 +29,9 @@ public class AlertServiceImpl implements AlertService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public List<AlertEntity> getAllAlerts() {
         return alertRepository.findAll();
@@ -59,7 +62,6 @@ public class AlertServiceImpl implements AlertService {
         if (senderOptional.isPresent()) {
             UserEntity sender = senderOptional.get();
             Set<GroupEntity> senderGroups = sender.getGroups();
-
             // Récupérer tous les utilisateurs des groupes du sender
             Set<UserEntity> recipients = senderGroups.stream()
                     .flatMap(group -> group.getUsers().stream())
@@ -83,7 +85,21 @@ public class AlertServiceImpl implements AlertService {
                         alert,
                         headerAccessor.getMessageHeaders()
                 );
+                // Envoi de l'alerte par email
+                String email = user.getEmail();
+                if (email != null && !email.isEmpty()) {
+                    String subject = "Alerte : " + alert.getTitle();
+                    String text = "Bonjour " + user.getUsername() + ",\n\n" +
+                            "Une nouvelle alerte a été émise :\n" +
+                            "Titre : " + alert.getTitle() + "\n" +
+                            "Message : " + alert.getMessage() + "\n\n" +
+                            "Merci de prendre les mesures nécessaires.";
+                    emailService.sendEmail(email, subject, text);
+                    System.out.println("Alerte envoyée par mail à " + email);
+                }
             });
+
+
 
             // Sauvegarder l'alerte
             alert.setUser(sender);
