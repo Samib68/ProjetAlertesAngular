@@ -61,9 +61,11 @@ public class AlertServiceImpl implements AlertService {
         Optional<UserEntity> senderOptional = userRepository.findById(senderId);
         if (senderOptional.isPresent()) {
             UserEntity sender = senderOptional.get();
-            Set<GroupEntity> senderGroups = sender.getGroups();
-            // Récupérer tous les utilisateurs des groupes du sender
-            Set<UserEntity> recipients = senderGroups.stream()
+            Set<GroupEntity> diffusionGroups = sender.getGroups().stream()
+                    .filter(GroupEntity::isDiffusion)
+                    .collect(Collectors.toSet());
+            // Récupérer tous les utilisateurs des groupes de diffusion
+            Set<UserEntity> recipients = diffusionGroups.stream()
                     .flatMap(group -> group.getUsers().stream())
                     .collect(Collectors.toSet());
 
@@ -85,6 +87,7 @@ public class AlertServiceImpl implements AlertService {
                         alert,
                         headerAccessor.getMessageHeaders()
                 );
+                /*
                 // Envoi de l'alerte par email
                 String email = user.getEmail();
                 if (email != null && !email.isEmpty()) {
@@ -97,8 +100,9 @@ public class AlertServiceImpl implements AlertService {
                     emailService.sendEmail(email, subject, text);
                     System.out.println("Alerte envoyée par mail à " + email);
                 }
-            });
 
+                 */
+            });
 
 
             // Sauvegarder l'alerte
